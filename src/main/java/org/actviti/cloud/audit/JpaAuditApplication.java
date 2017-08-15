@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package org.activiti.services.audit;
+package org.actviti.cloud.audit;
 
+import org.activiti.cloud.starter.configuration.EnableActivitiAudit;
 import org.activiti.services.audit.AuditConsumerChannels;
 import org.activiti.services.audit.EventsRepository;
 import org.activiti.services.audit.events.ProcessEngineEventEntity;
@@ -23,21 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableJpaRepositories("org.activiti.services.audit")
-@EntityScan(basePackages = {"org.activiti.services.audit.events","org.activiti.services.audit.events.model"})
+@EnableActivitiAudit
 @ComponentScan("org.activiti")
-@EnableBinding(AuditConsumerChannels.class)
 public class JpaAuditApplication implements CommandLineRunner {
 
     private final EventsRepository eventsRepository;
