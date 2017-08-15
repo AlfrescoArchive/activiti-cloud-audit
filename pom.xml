@@ -137,8 +137,8 @@
         <configuration>
           <images>
             <image>
-              <name>salaboy/activiti-audit</name>
-              <alias>activit-audit</alias>
+              <name>salaboy/activiti-cloud-audit</name>
+              <alias>activit-cloud-audit</alias>
               <build>
                 <from>openjdk:alpine</from>
                 <assembly>
