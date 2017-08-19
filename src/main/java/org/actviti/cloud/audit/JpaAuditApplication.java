@@ -43,7 +43,7 @@ public class JpaAuditApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(JpaAuditApplication.class,
-                args);
+                              args);
     }
 
     @Override
@@ -52,8 +52,10 @@ public class JpaAuditApplication implements CommandLineRunner {
     }
 
     @StreamListener(AuditConsumerChannels.AUDIT_CONSUMER)
-    public synchronized void receive(ProcessEngineEventEntity event) {
-        eventsRepository.save(event);
+    public synchronized void receive(ProcessEngineEventEntity[] events) {
+        for (ProcessEngineEventEntity event : events) {
+            eventsRepository.save(event);
+        }
     }
 
     @Bean
