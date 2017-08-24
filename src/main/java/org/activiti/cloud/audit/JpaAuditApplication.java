@@ -31,13 +31,10 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.activiti.cloud.starter.configuration.EnableActivitiAudit;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableJpaRepositories("org.activiti.services.audit")
-@EntityScan(basePackages = {"org.activiti.services.audit.events","org.activiti.services.audit.events.model"})
-@ComponentScan("org.activiti")
-@EnableBinding(AuditConsumerChannels.class)
+@EnableActivitiAudit
 public class JpaAuditApplication implements CommandLineRunner {
 
     private final EventsRepository eventsRepository;
