@@ -35,6 +35,7 @@ import org.activiti.cloud.starter.configuration.EnableActivitiAudit;
 
 @SpringBootApplication
 @EnableActivitiAudit
+@ComponentScan("org.activiti")
 public class JpaAuditApplication implements CommandLineRunner {
 
     private final EventsRepository eventsRepository;
