@@ -18,3 +18,46 @@ Activiti Cloud Audit Service JPA Implementation. This service uses a Relational 
 As all our services, this module was build using the [activiti-cloud-starter-audit](https://github.com/activiti/activiti-cloud-audit-service) module, that you can use to create your own version of this service as with any other Spring Boot Starter.  
 
 For more information about his module and the starters you can take a look at our [Activiti & Activiti Cloud GitBook](https://activiti.gitbooks.io/activiti-7-developers-guide/content/components/activiti-cloud-app/AuditService.html)
+
+[Docker Image](https://hub.docker.com/r/activiti/activiti-cloud-audit/)
+
+## Running this Service
+
+Docker: 
+> docker run -p 8181:8181 -d --name activiti-cloud-audit activiti/activiti-cloud-audit:latest
+
+Spring Boot: 
+> mvn clean install spring-boot:run
+
+## Environemnt Variables
+
+server.port=${ACT_AUDIT_PORT:8181}
+spring.application.name=${ACT_AUDIT_APP_NAME:audit}
+
+spring.cloud.stream.bindings.auditConsumer.destination=${ACT_AUDIT_CONSUMER_DEST:engineEvents}
+spring.cloud.stream.bindings.auditConsumer.group=${ACT_AUDIT_CONSUMER_GROUP:audit}
+spring.cloud.stream.bindings.auditConsumer.contentType=${ACT_AUDIT_CONSUMER_CONTENT_TYPE:application/json}
+spring.jackson.serialization.fail-on-unwrapped-type-identifiers=${ACT_AUDIT_JACKSON_FAIL_ON_UNWRAPPED_IDS:false}
+
+keycloak.auth-server-url=${ACT_KEYCLOAK_URL:http://activiti-cloud-sso-idm:8180/auth}
+keycloak.realm=${ACT_KEYCLOAK_REALM:springboot}
+keycloak.resource=${ACT_KEYCLOAK_RESOURCE:activiti}
+keycloak.ssl-required=${ACT_KEYCLOAK_SSL_REQUIRED:none}
+keycloak.public-client=${ACT_KEYCLOAK_CLIENT:true}
+
+keycloak.security-constraints[0].authRoles[0]=${ACT_KEYCLOAK_ROLES:user}
+keycloak.security-constraints[0].securityCollections[0].patterns[0]=${ACT_KEYCLOAK_PATTERNS:/v1/*}
+
+keycloak.principal-attribute=${ACT_KEYCLOAK_PRINCIPAL_ATTRIBUTE:preferred-username}
+
+keycloakadminclientapp=${ACT_KEYCLOAK_CLIENT_APP:admin-cli}
+keycloakclientuser=${ACT_KEYCLOAK_CLIENT_USER:client}
+keycloakclientpassword=${ACT_KEYCLOAK_CLIENT_PASSWORD:client}
+# this user needs to have the realm management roles assigned
+
+spring.rabbitmq.host=${ACT_RABBITMQ_HOST:rabbitmq}
+eureka.client.serviceUrl.defaultZone=${ACT_EUREKA_URL:http://activiti-cloud-registry:8761/eureka/}
+
+#hostname as declared to eureka
+eureka.instance.hostname=${ACT_AUDIT_HOST:activiti-cloud-audit}
+eureka.client.enabled=${ACT_AUDIT_EUREKA_CLIENT_ENABLED:true}
