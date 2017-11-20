@@ -9,13 +9,16 @@ For more information about his module and the starters you can take a look at ou
 
 [Docker Image](https://hub.docker.com/r/activiti/activiti-cloud-audit/)
 
-## Running this Service
+## Building & Running this Service
+You can build this service from source using Git & Maven or you can just run our Docker Image. 
 
-Docker: 
-> docker run -p 8181:8181 -d --name activiti-cloud-audit activiti/activiti-cloud-audit:latest
-
-Spring Boot: 
+### Spring Boot: 
+> git clone https://github.com/Activiti/activiti-cloud-audit.git
+> cd activiti-cloud-audit/
 > mvn clean install spring-boot:run
+
+### Docker: 
+> docker run -p 8181:8181 -d --name activiti-cloud-audit activiti/activiti-cloud-audit:latest
 
 ## Environemnt Variables
 
