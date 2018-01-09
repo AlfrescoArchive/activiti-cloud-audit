@@ -21,7 +21,7 @@ You can build this service from source using Git & Maven or you can just run our
 > docker run -p 8181:8181 -d --name activiti-cloud-audit activiti/activiti-cloud-audit:latest
 
 ## Environemnt Variables
-
+```
 server.port=${ACT_AUDIT_PORT:8181}
 spring.application.name=${ACT_AUDIT_APP_NAME:audit}
 spring.cloud.stream.bindings.auditConsumer.destination=${ACT_AUDIT_CONSUMER_DEST:engineEvents}
@@ -36,10 +36,11 @@ keycloak.public-client=${ACT_KEYCLOAK_CLIENT:true}
 keycloak.security-constraints[0].authRoles[0]=${ACT_KEYCLOAK_ROLES:user}
 keycloak.security-constraints[0].securityCollections[0].patterns[0]=${ACT_KEYCLOAK_PATTERNS:/v1/*}
 keycloak.principal-attribute=${ACT_KEYCLOAK_PRINCIPAL_ATTRIBUTE:preferred-username}
-keycloakadminclientapp=${ACT_KEYCLOAK_CLIENT_APP:admin-cli}
-keycloakclientuser=${ACT_KEYCLOAK_CLIENT_USER:client}
-keycloakclientpassword=${ACT_KEYCLOAK_CLIENT_PASSWORD:client}
+activiti.keycloak.admin-client-app=${ACT_KEYCLOAK_CLIENT_APP:admin-cli}
+activiti.keycloak.client-user=${ACT_KEYCLOAK_CLIENT_USER:client}
+activiti.keycloak.client-password=${ACT_KEYCLOAK_CLIENT_PASSWORD:client}
 spring.rabbitmq.host=${ACT_RABBITMQ_HOST:rabbitmq}
 eureka.client.serviceUrl.defaultZone=${ACT_EUREKA_URL:http://activiti-cloud-registry:8761/eureka/}
 eureka.instance.hostname=${ACT_AUDIT_HOST:activiti-cloud-audit}
 eureka.client.enabled=${ACT_AUDIT_EUREKA_CLIENT_ENABLED:true}
+```
