@@ -10,7 +10,7 @@
   <name>Activiti Cloud :: Audit</name>
 
   <properties>
-    <version.activiti.cloud>${project.version}</version.activiti.cloud>
+    <version.activiti.cloud>7-201801-EA-SNAPSHOT</version.activiti.cloud>
 
     <spring-boot-maven-plugin.version>2.0.0.M7</spring-boot-maven-plugin.version>
     <docker.maven.plugin.version>0.21.0</docker.maven.plugin.version>
