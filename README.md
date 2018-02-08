@@ -7,6 +7,8 @@
 [![CLA](https://cla-assistant.io/readme/badge/Activiti/activiti-cloud-audit)](https://cla-assistant.io/Activiti/activiti-cloud-audit)
 [![Docker Build Status](https://img.shields.io/docker/build/activiti/activiti-cloud-audit.svg)](https://hub.docker.com/r/activiti/activiti-cloud-audit/)
 [![Known Vulnerabilities](https://snyk.io/test/github/Activiti/activiti-cloud-audit/badge.svg)](https://snyk.io/test/github/Activiti/activiti-cloud-audit)
+[![security status](https://www.meterian.com/badge/gh/Activiti/activiti-cloud-audit/security)](https://www.meterian.com/report/gh/Activiti/activiti-cloud-audit)
+[![stability status](https://www.meterian.com/badge/gh/Activiti/activiti-cloud-audit/stability)](https://www.meterian.com/report/gh/Activiti/activiti-cloud-audit)
 
 Activiti Cloud Audit Service JPA Implementation. This service uses a Relational Database to store events emitted by Runtime Bundles as they come in.
 
