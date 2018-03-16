@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JpaAuditApplication.class)
 @DirtiesContext
-public class ApplicationTest {
+public class ApplicationIT {
 
 	@Test
 	public void contextLoads() throws Exception {
