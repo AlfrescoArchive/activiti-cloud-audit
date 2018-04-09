@@ -2,11 +2,9 @@ package org.activiti.cloud.audit;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 
 import com.netflix.appinfo.ApplicationInfoManager;
-import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -23,14 +21,12 @@ public class AuditMetaDataAutoConfiguration {
     @Autowired
     private ApplicationInfoManager appInfoManager;
 
-
-
     public AuditMetaDataAutoConfiguration() {
 
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         Map<String, String> metadata = new HashMap<>();
         metadata.put("activiti-cloud-service-type",
                      "audit");
@@ -38,5 +34,4 @@ public class AuditMetaDataAutoConfiguration {
                      applicationName);
         appInfoManager.registerAppMetadata(metadata);
     }
-    
 }
