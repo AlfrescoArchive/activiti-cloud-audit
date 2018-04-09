@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(ApplicationInfoManager.class)
 // This code needs to live here until we find the right abstraction for registering/updating Service Metadata
-public class AuditMetaDataAutoConfiguration implements BeanClassLoaderAware {
+public class AuditMetaDataAutoConfiguration {
 
     @Value("${activiti.cloud.application.name:}")
     private String applicationName;
@@ -38,9 +38,5 @@ public class AuditMetaDataAutoConfiguration implements BeanClassLoaderAware {
                      applicationName);
         appInfoManager.registerAppMetadata(metadata);
     }
-
-
-    public void setBeanClassLoader(ClassLoader classLoader) {
-        // Do nothing for now
-    }
+    
 }
