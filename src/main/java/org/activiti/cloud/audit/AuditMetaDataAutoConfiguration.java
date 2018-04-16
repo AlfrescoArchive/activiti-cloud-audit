@@ -9,17 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
+import org.activiti.cloud.services.metadata.MetadataService;
 
 @Configuration
 @ConditionalOnClass(ApplicationInfoManager.class)
 // This code needs to live here until we find the right abstraction for registering/updating Service Metadata
 public class AuditMetaDataAutoConfiguration {
 
-    @Value("${activiti.cloud.application.name:}")
-    private String applicationName;
-
     @Autowired
     private ApplicationInfoManager appInfoManager;
+
+    @Autowired
+    private MetadataService metadataService;
 
     public AuditMetaDataAutoConfiguration() {
 
@@ -27,11 +28,6 @@ public class AuditMetaDataAutoConfiguration {
 
     @PostConstruct
     public void init() {
-        Map<String, String> metadata = new HashMap<>();
-        metadata.put("activiti-cloud-service-type",
-                     "audit");
-        metadata.put("activiti-cloud-application-name",
-                     applicationName);
-        appInfoManager.registerAppMetadata(metadata);
+        appInfoManager.registerAppMetadata(metadataService.getMetadata());
     }
 }
