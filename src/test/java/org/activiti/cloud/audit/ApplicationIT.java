@@ -14,12 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 public class ApplicationIT {
 
-	@Autowired
-	private MetadataService metadataService;
-
 	@Test
 	public void contextLoads() throws Exception {
-		Assert.assertNotNull(metadataService);
+		
 	}
 
 }
