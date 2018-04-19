@@ -9,6 +9,7 @@
   </parent>
   <groupId>org.activiti.cloud.examples</groupId>
   <artifactId>activiti-cloud-audit</artifactId>
+  <version>7-201802-EA</version>
   <name>Activiti Cloud :: Audit</name>
   <url>http://activiti.org</url>
   <scm>
