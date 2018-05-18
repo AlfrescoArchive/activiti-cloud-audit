@@ -16,15 +16,13 @@
 
 package org.activiti.cloud.audit;
 
-import org.activiti.cloud.starter.configuration.EnableActivitiAudit;
+import org.activiti.cloud.starter.audit.configuration.EnableActivitiAudit;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableActivitiAudit
-@ComponentScan("org.activiti")
 public class JpaAuditApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -35,5 +33,4 @@ public class JpaAuditApplication implements CommandLineRunner {
     public void run(String... strings) throws Exception {
 
     }
-
 }
