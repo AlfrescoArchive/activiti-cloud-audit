@@ -10,6 +10,7 @@
   <groupId>org.activiti.cloud.examples</groupId>
   <artifactId>activiti-cloud-audit</artifactId>
   <name>Activiti Cloud :: Audit</name>
+  <version>7-201803-EA-SNAPSHOT</version>
   <url>http://activiti.org</url>
   <scm>
     <url>https://github.com/Activiti/${project.artifactId}</url>
