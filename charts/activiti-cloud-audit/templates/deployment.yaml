@@ -31,20 +31,20 @@ spec:
           value: {{ template "fullname" . }}
 {{- end }}
         - name: SPRING_RABBITMQ_HOST
-        {{- if .Values.global.rabbitmq.host.value }}
-          value: "{{ .Values.global.rabbitmq.host.value }}"
+        {{- if .Values.global.rabbitmqHost }}
+          value: "{{ .Values.global.rabbitmqHost }}"
         {{ else }}
           value: "{{ .Release.Name }}-rabbitmq"
         {{ end }}
         - name: SPRING_RABBITMQ_USERNAME
-          value: {{ .Values.global.rabbitmq.username.value }}
+          value: {{ .Values.global.rabbitmqUsername }}
         - name: SPRING_RABBITMQ_PASSWORD
-          value: {{ .Values.global.rabbitmq.password.value }}
+          value: {{ .Values.global.rabbitmqPassword }}
         - name: ACT_KEYCLOAK_URL
-        {{- if .Values.global.keycloak.url }}
-          value: "{{ .Values.global.keycloak.url }}"
+        {{- if .Values.global.keycloakUrl }}
+          value: "{{ .Values.global.keycloakUrl }}"
         {{ else }}
-          value: "http://{{ .Release.Name }}-{{ .Values.global.keycloak.name }}-{{ .Values.global.keycloak.service.type }}:{{ .Values.global.keycloak.service.port }}/auth"
+          value: "http://{{ .Release.Name }}-{{ .Values.global.keycloakServiceName }}-{{ .Values.global.keycloakServiceType }}:{{ .Values.global.keycloakServicePort }}/auth"
         {{ end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"

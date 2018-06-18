@@ -4,19 +4,16 @@
 replicaCount: 1
 
 global:
-  rabbitmq:
-    host:
-      value: ""
-    username:
-      value: guest
-    password:
-      value: guest
-  keycloak:
-    url: ""
-    name: keycloak
-    service:
-      type: http
-      port: 80
+  keycloakUrl: ""
+  keycloakServiceName: keycloak
+  keycloakServiceType: http
+  keycloakServicePort: 80
+
+global:
+  rabbitmqHost: ""
+  rabbitmqUsername: guest
+  rabbitmqPassword: guest
+
 db:
   uri: ""
   name: postgresql
