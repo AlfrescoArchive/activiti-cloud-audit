@@ -2,9 +2,9 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "activiti-cloud-audit.fullname" . }}
+  name: {{ template "fullname" . }}
   labels:
-    app: {{ template "activiti-cloud-audit.name" . }}
+    app: {{ template "fullname" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
