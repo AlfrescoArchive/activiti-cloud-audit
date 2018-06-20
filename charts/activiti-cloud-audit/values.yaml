@@ -35,7 +35,7 @@ image:
   tag: dev
   pullPolicy: IfNotPresent
 service:
-#  name: activiti-cloud-audit
+  name: audit
   type: ClusterIP
   externalPort: 80
   internalPort: 8083
