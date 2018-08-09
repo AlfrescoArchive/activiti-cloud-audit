@@ -7,7 +7,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = JpaAuditApplication.class)
+@SpringBootTest(classes = Application.class)
 @DirtiesContext
 public class ApplicationIT {
 
