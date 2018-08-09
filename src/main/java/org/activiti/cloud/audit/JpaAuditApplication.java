@@ -24,7 +24,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableActivitiAudit
-@ComponentScan("org.activiti.cloud.services.common.security")
+@ComponentScan(basePackages = {"org.activiti.cloud.services.common.security",
+        "org.activiti.spring.security.policies"})
 public class JpaAuditApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
