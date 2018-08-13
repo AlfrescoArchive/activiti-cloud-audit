@@ -17,11 +17,14 @@
 package org.activiti.cloud.audit;
 
 import org.activiti.cloud.starter.audit.configuration.EnableActivitiAudit;
+import org.activiti.cloud.starter.audit.configuration.SwaggerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @EnableActivitiAudit
+@Import(SwaggerConfig.class) //TODO: this is temporary, will apply this in service layer
 public class Application {
 
     public static void main(String[] args) {
