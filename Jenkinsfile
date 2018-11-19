@@ -4,6 +4,8 @@ pipeline {
       ORG               = 'almerico'
       APP_NAME          = 'activiti-cloud-audit'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
+      GITHUB_CHARTS_REPO    = "https://github.com/almerico/helmrepo.git"
+      GITHUB_HELM_REPO_URL = "https://almerico.github.io/helmrepo"
     }
     stages {
       stage('CI Build and push snapshot') {
@@ -67,7 +69,9 @@ pipeline {
               // release the helm chart
               sh 'make release'
               // promote through all 'Auto' promotion Environments
-              sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
+              //sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
+              sh 'jx step git credentials'
+              sh 'cd ../.. && updatebot push-version --kind helm $APP_NAME \$(cat VERSION)'
           }
         }
       }
