@@ -2,4 +2,4 @@ github:
   organisations:
   - name: almerico
     repositories:
-    - name: activiti-cloud-charts
+    - name: activiti-cloud-application-chart
