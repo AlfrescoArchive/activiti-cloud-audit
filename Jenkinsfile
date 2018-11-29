@@ -1,11 +1,13 @@
 pipeline {
-    agent any
+    agent {
+      label "jenkins-maven"
+    }
     environment {
       ORG               = 'almerico'
       APP_NAME          = 'activiti-cloud-audit'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
-      GITHUB_CHARTS_REPO    = "https://github.com/almerico/helmrepo.git"
       GITHUB_HELM_REPO_URL = "https://almerico.github.io/helmrepo"
+      GITHUB_CHARTS_REPO    = "https://github.com/almerico/helmrepo.git"
     }
     stages {
       stage('CI Build and push snapshot') {
@@ -18,17 +20,18 @@ pipeline {
           HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
         }
         steps {
-          sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
-          sh "mvn install"
-          sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
-          sh "jx step validate --min-jx-version 1.2.36"
-          sh "jx step post build --image \$DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
-//          dir ('./charts/preview') {
-//             sh "make preview"
-//             sh "jx preview --app $APP_NAME --dir ../.."
-//          }
-          dir('.charts/activiti-cloud-audit') {
-            sh "make build"
+          container('maven') {
+            sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
+            sh "mvn install"
+            sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
+
+//           skip building docker image for now
+   //        sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
+
+
+             dir('.charts/activiti-cloud-audit') {
+               sh "make build"
+             }
           }
         }
       }
@@ -37,9 +40,12 @@ pipeline {
           branch 'master'
         }
         steps {
+          container('maven') {
+            // ensure we're not on a detached head
+            sh "git checkout master"
+            sh "git config --global credential.helper store"
 
-            git 'https://github.com/almerico/activiti-cloud-audit.git'
-
+            sh "jx step git credentials"
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
             sh "mvn versions:set -DnewVersion=\$(cat VERSION)"
@@ -48,26 +54,38 @@ pipeline {
               sh "make tag"
             }
             sh 'mvn clean deploy'
+
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
-            sh "jx step post build --image \$DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
+
+            sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
+          }
         }
       }
-
       stage('Promote to Environments') {
         when {
           branch 'master'
         }
         steps {
-          dir ('./charts/activiti-cloud-audit') {
+          container('maven') {
+            dir ('./charts/activiti-cloud-audit') {
               sh 'jx step changelog --version v\$(cat ../../VERSION)'
+
               // release the helm chart
               sh 'make release'
               // promote through all 'Auto' promotion Environments
-              //sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
+//            sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
               sh 'jx step git credentials'
               sh 'cd ../.. && updatebot push-version --kind helm $APP_NAME \$(cat VERSION)'
+
+            }
           }
         }
       }
     }
-  }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
