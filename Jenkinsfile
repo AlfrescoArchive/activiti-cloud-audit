@@ -29,7 +29,7 @@ pipeline {
    //        sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
 
 
-             dir(".charts/$APP_NAME") {
+             dir('.charts/activiti-cloud-audit') {
                sh "make build"
              }
           }
@@ -50,7 +50,7 @@ pipeline {
             sh "echo \$(jx-release-version) > VERSION"
             sh "mvn versions:set -DnewVersion=\$(cat VERSION)"
 
-            dir ("./charts/$APP_NAME") {
+            dir ('./charts/activiti-cloud-audit') {
               sh "make tag"
             }
             sh 'mvn clean deploy'
@@ -67,7 +67,7 @@ pipeline {
         }
         steps {
           container('maven') {
-            dir ("./charts/$APP_NAME") {
+            dir ('./charts/activiti-cloud-audit') {
               sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
               // release the helm chart
