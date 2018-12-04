@@ -20,14 +20,14 @@ spec:
     imagePullPolicy: IfNotPresent
     args:
     - --registry-mirror=https://mirror.gcr.io
-#    - --insecure-registry=10.7.251.133:5000
+    - --insecure-registry="$JENKINS_X_DOCKER_REGISTRY_PORT_5000_TCP_ADDR:5000"
     workingDir: /home/jenkins
     securityContext:
       privileged: true
     tty: true
     env:
-    - name: DOCKER_OPTS
-      valie: "--insecure-registry=10.7.251.133:5000"
+#    - name: DOCKER_OPTS
+#      valie: "--insecure-registry=$JENKINS_X_DOCKER_REGISTRY_PORT_5000_TCP_ADDR:5000"
     - name: DOCKER_CONFIG
       value: /home/jenkins/.docker/
     - name: DOCKER_HOST
