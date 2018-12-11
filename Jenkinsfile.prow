@@ -34,7 +34,7 @@ pipeline {
         }
         steps {
 
-            git 'https://github.com/almerico/activiti-cloud-audit.git'
+            git 'https://github.com/activiti/activiti-cloud-audit.git'
 
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
