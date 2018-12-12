@@ -8,11 +8,14 @@ GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 
 build: clean
-	rm -rf requirements.lock
+	helm init --client-only
+	helm repo add charts_activiti https://activiti.github.io/activiti-cloud-charts/
+	helm repo add activiti-cloud-helm-charts https://activiti.github.io/activiti-cloud-helm-charts/
 	helm dependency build
 	helm lint
+	helm install . --name ${NAME} --debug --dry-run
 
-install: clean build
+install:  build
 	helm install . --name ${NAME}
 
 upgrade: clean build
@@ -22,16 +25,13 @@ delete:
 	helm delete --purge ${NAME}
 
 clean:
+	rm -rf requirements.lock
 	rm -rf charts
 	rm -rf ${NAME}*.tgz
 
-release: clean
-	helm init --client-only
-	helm dependency build
-	helm lint
+release: build
 	helm package .
-#	curl --fail -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
-	${MAKE} github
+#	curl  -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
 #	rm -rf ${NAME}*.tgz%
 github:
 	$(eval GITHUB_CHARTS_DIR := $(shell basename $(GITHUB_CHARTS_REPO) .git))
