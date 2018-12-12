@@ -73,3 +73,6 @@ extraEnv: |
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
 
+ingress:
+  ## Set to true to enable ingress record generation
+  enabled: false
