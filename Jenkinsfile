@@ -36,7 +36,7 @@ pipeline {
    //        sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
 
 
-             dir('.charts/activiti-cloud-audit') {
+             dir('./charts/activiti-cloud-audit') {
                sh "make build"
              }
           }
