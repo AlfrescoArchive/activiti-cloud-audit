@@ -32,11 +32,7 @@ pipeline {
             sh "mvn install"
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
 
-//           skip building docker image for now
-   //        sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
-
-
-             dir('./charts/activiti-cloud-audit') {
+           dir('./charts/activiti-cloud-audit') {
                sh "make build"
              }
           }
@@ -80,11 +76,8 @@ pipeline {
               // release the helm chart
               sh 'make release'
               sh 'make github'  
-              // promote through all 'Auto' promotion Environments
-//            sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
               sh 'jx step git credentials'
               sh 'cd ../.. && updatebot push-version --kind helm $APP_NAME \$(cat VERSION)'
-
             }
           }
         }
