@@ -1,8 +1,11 @@
 #CHART_REPO := http://jenkins-x-chartmuseum:8080
-CURRENT=$(pwd)
+CURRENT=$(shell pwd)
 NAME := activiti-cloud-audit
+ORG := $(or $(ORG),activiti)
+APP_NAME := $(or $(APP_NAME),$(NAME))
 OS := $(shell uname)
 RELEASE_VERSION := $(shell cat ../../VERSION)
+RELEASE_ARTIFACT := $(or $(RELEASE_ARTIFACT),$(APP_NAME))
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
@@ -33,6 +36,7 @@ release: build
 	helm package .
 #	curl  -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
 #	rm -rf ${NAME}*.tgz%
+
 github:
 	$(eval GITHUB_CHARTS_DIR := $(shell basename $(GITHUB_CHARTS_REPO) .git))
 	git clone -b "$(GITHUB_CHARTS_BRANCH)" "$(GITHUB_CHARTS_REPO)" $(GITHUB_CHARTS_DIR)
@@ -51,7 +55,7 @@ ifeq ($(OS),Darwin)
 	sed -i "" -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 else ifeq ($(OS),Linux)
 	sed -i -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
-	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/activiti/activiti-cloud-audit|" values.yaml
+	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/$(ORG)/$(APP_NAME)|" values.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 else
 	echo "platfrom $(OS) not supported to release from"
@@ -68,5 +72,4 @@ updatebot/push-version:
 	
 	@echo Doing updatebot push-version.....
 	updatebot push-version --kind helm $(RELEASE_ARTIFACT) $(RELEASE_VERSION)
-	updatebot push-version --kind make AUDIT_ACTIVITI_CLOUD_DEPENDENCIES_VERSION $(ACTIVITI_CLOUD_DEPENDENCIES_VERSION)
-
+	updatebot push-version --kind make QUERY_ACTIVITI_CLOUD_DEPENDENCIES_VERSION $(ACTIVITI_CLOUD_DEPENDENCIES_VERSION)
