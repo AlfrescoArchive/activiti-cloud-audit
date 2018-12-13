@@ -32,7 +32,11 @@ pipeline {
             sh "mvn install"
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
 
-           dir('./charts/activiti-cloud-audit') {
+            // skip building docker image for now
+            // sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
+
+
+             dir("./charts/$APP_NAME") {
                sh "make build"
              }
           }
@@ -53,7 +57,7 @@ pipeline {
             sh "echo \$(jx-release-version) > VERSION"
             sh "mvn versions:set -DnewVersion=\$(cat VERSION)"
 
-            dir ('./charts/activiti-cloud-audit') {
+            dir ("./charts/$APP_NAME") {
               sh "make tag"
             }
             sh 'mvn clean deploy'
@@ -70,14 +74,17 @@ pipeline {
         }
         steps {
           container('maven') {
-            dir ('./charts/activiti-cloud-audit') {
+            dir ("./charts/$APP_NAME") {
               sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
               // release the helm chart
               sh 'make release'
               sh 'make github'  
+              // promote through all 'Auto' promotion Environments
+              // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
               sh 'jx step git credentials'
-              sh 'cd ../.. && updatebot push-version --kind helm $APP_NAME \$(cat VERSION)'
+              sh 'make updatebot/push-version'
+
             }
           }
         }
