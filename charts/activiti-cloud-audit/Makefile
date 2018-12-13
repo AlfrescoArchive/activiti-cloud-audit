@@ -61,3 +61,12 @@ endif
 	git commit -m "release $(RELEASE_VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
 	git push origin v$(RELEASE_VERSION)
+
+updatebot/push-version: 
+	@echo Resolving push versions for artifacts........
+	$(eval ACTIVITI_CLOUD_DEPENDENCIES_VERSION=$(shell mvn help:evaluate -Dexpression=activiti-cloud-dependencies.version -q -DforceStdout))
+	
+	@echo Doing updatebot push-version.....
+	updatebot push-version --kind helm $(RELEASE_ARTIFACT) $(RELEASE_VERSION)
+	updatebot push-version --kind make AUDIT_ACTIVITI_CLOUD_DEPENDENCIES_VERSION $(ACTIVITI_CLOUD_DEPENDENCIES_VERSION)
+
