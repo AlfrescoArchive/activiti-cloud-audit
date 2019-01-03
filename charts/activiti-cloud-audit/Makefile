@@ -56,8 +56,7 @@ github:
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(RELEASE_VERSION).tgz" && \
 	   git pull && \
-	   ${MAKE} push
-
+	   push
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 tag:
