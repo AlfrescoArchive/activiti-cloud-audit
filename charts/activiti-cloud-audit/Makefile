@@ -40,6 +40,7 @@ release: build
 push:
 	set -e
 	for i in {0..10}; do \
+	    cd $(GITHUB_CHARTS_DIR) && \
 	    git push origin "$(GITHUB_CHARTS_BRANCH)"; \
 	    [[ $$? == 0 ]] && exit 0; \
  	    echo 'done'; \
