@@ -37,6 +37,15 @@ release: build
 #	curl  -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
 #	rm -rf ${NAME}*.tgz%
 
+push:
+	set -e
+	for i in {0..10}; do \
+	    git push origin "$(GITHUB_CHARTS_BRANCH)"; \
+	    [[ $$? == 0 ]] && exit 0; \
+ 	    echo 'done'; \
+	done
+	echo "Error during push"
+
 github:
 	$(eval GITHUB_CHARTS_DIR := $(shell basename $(GITHUB_CHARTS_REPO) .git))
 	git clone -b "$(GITHUB_CHARTS_BRANCH)" "$(GITHUB_CHARTS_REPO)" $(GITHUB_CHARTS_DIR)
@@ -46,7 +55,9 @@ github:
 	   git add . && \
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(RELEASE_VERSION).tgz" && \
-	   git push origin "$(GITHUB_CHARTS_BRANCH)"
+	   git pull && \
+	   ${MAKE} push
+
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 tag:
