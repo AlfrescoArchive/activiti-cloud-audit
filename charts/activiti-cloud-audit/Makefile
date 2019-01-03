@@ -38,10 +38,11 @@ release: build
 #	curl  -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
 #	rm -rf ${NAME}*.tgz%
 push:
-	for i in {0..10}; do \
+	for i in {0..20}; do \
 	   	cd $(GITHUB_CHARTS_DIR) && \
 	   	git push origin "$(GITHUB_CHARTS_BRANCH)"; \
 	   	[[ $$? == 0 ]]&&exit 0; \
+	   	echo git push try $$i; \
 	done
 
 github:
