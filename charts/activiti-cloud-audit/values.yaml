@@ -58,13 +58,13 @@ probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
-  timeoutSeconds: 20
-  failureThreshold: 20
+  timeoutSeconds: 10
+  failureThreshold: 40
 readinessProbe:
-  initialDelaySeconds: 30
-  periodSeconds: 15
+  initialDelaySeconds: 20
+  periodSeconds: 10
   timeoutSeconds: 20
-  failureThreshold: 20
+  failureThreshold: 40
 terminationGracePeriodSeconds: 20
 
 ## Allows the specification of additional environment variables
