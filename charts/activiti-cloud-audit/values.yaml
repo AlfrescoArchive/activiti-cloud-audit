@@ -32,7 +32,7 @@ auditpostgresql:
 
 javaOpts:
   xmx: 1024m
-  xms: 512m
+  xms: 768m
   other: -XX:+UnlockExperimentalVMOptions   -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 
 image:
@@ -52,8 +52,8 @@ resources:
     cpu: 1
     memory: 1024Mi
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 800m
+    memory: 768Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
@@ -63,7 +63,7 @@ livenessProbe:
 readinessProbe:
   initialDelaySeconds: 20
   periodSeconds: 10
-  timeoutSeconds: 20
+  timeoutSeconds: 10
   failureThreshold: 40
 terminationGracePeriodSeconds: 20
 
