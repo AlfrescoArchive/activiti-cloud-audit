@@ -29,6 +29,13 @@ db:
 
 auditpostgresql:
    postgresPassword: audit
+   resources:
+     requests:
+       memory: 512Mi
+       cpu: 400m
+     limits:
+      memory: 1024Mi
+      cpu: 800m
 
 javaOpts:
   xmx: 1024m
