@@ -78,12 +78,12 @@ pipeline {
               // sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
               // release the helm chart
-              sh 'make release'
-              sh 'make github'  
+              //sh 'make release'
+              //sh 'make github'  
               // promote through all 'Auto' promotion Environments
               // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
-              sh 'jx step git credentials'
-              sh 'make updatebot/push-version'
+              //sh 'jx step git credentials'
+              //sh 'make updatebot/push-version'
 
             }
           }
