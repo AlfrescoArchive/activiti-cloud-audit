@@ -87,7 +87,10 @@ pipeline {
               // promote through all 'Auto' promotion Environments
               // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait'
               sh 'jx step git credentials'
-              sh 'make updatebot/push-version'
+              sh 'sleep 10'
+              retry(2) {
+                sh 'make updatebot/push-version'
+              }
 
             }
           }
