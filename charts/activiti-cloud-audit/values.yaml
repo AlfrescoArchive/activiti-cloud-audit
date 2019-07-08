@@ -44,8 +44,8 @@ javaOpts:
 # only set this variable if a private registry secret is needed to pull the image
 #registryPullSecrets: private-registry-secret
 image:
-  repository: activiti/activiti-cloud-audit
-  tag: 7.0.0.SR1
+  repository: 10.55.243.55:5000/activiti/activiti-cloud-audit
+  tag: 7.1.113
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
