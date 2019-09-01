@@ -29,7 +29,7 @@ You can build this service from source using Git & Maven or you can just run our
 ### Docker: 
 > docker run -p 8181:8181 -d --name activiti-cloud-audit activiti/activiti-cloud-audit:latest
 
-## Environemnt Variables
+## Environment Variables
 ```
 server.port=${ACT_AUDIT_PORT:8181}
 spring.application.name=${ACT_AUDIT_APP_NAME:audit}
