@@ -31,8 +31,8 @@ db:
 
 init:
   image:
-    repository: alpine
-    tag: 3.8
+    repository: docker.io/activiti/activiti-cloud-audit
+    tag: 7.1.184
     pullPolicy: IfNotPresent
     
 postgres:
@@ -52,8 +52,8 @@ javaOpts:
 # only set this variable if a private registry secret is needed to pull the image
 #registryPullSecrets: private-registry-secret
 image:
-  repository: activiti/activiti-cloud-audit
-  tag: 7.0.0.SR1
+  repository: docker.io/activiti/activiti-cloud-audit
+  tag: 7.1.184
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
