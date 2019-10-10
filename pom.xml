@@ -36,7 +36,7 @@
         <groupId>org.activiti.cloud.audit</groupId>
         <artifactId>activiti-cloud-audit-dependencies</artifactId>
         <version>${activiti-cloud-audit-service.version}</version>
-        <scope>import<scope>
+        <scope>import</scope>
         <type>pom</type>
       </dependency>
     </dependencies>
