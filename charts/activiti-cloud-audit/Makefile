@@ -81,11 +81,11 @@ updatebot/push-version:
 	
 	@echo Doing updatebot push-version.....
 
-	cd ../../ && updatebot push-version --kind maven org.activiti.cloud.audit:activiti-cloud-audit-dependencies $(ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION)
+	cd ../../ && updatebot push-version --kind maven org.activiti.cloud.audit:activiti-cloud-audit-dependencies $(ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION) org.activiti.cloud.examples:activiti-cloud-audit $(RELEASE_VERSION)
 	cd ../../ && updatebot push-version --kind make ACTIVITI_CLOUD_AUDIT_VERSION $(RELEASE_VERSION)
 	cd ../../ && rm -rf .updatebot-repos/
 	sleep $$[ ( $$RANDOM % 10 )  + 1 ]s
 
-	cd ../../ && updatebot push-version --kind maven org.activiti.cloud.audit:activiti-cloud-audit-dependencies $(ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION)
+	cd ../../ && updatebot push-version --kind maven org.activiti.cloud.audit:activiti-cloud-audit-dependencies $(ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION) org.activiti.cloud.examples:activiti-cloud-audit $(RELEASE_VERSION)	
 	cd ../../ && updatebot push-version --kind make ACTIVITI_CLOUD_AUDIT_VERSION $(RELEASE_VERSION)
 
