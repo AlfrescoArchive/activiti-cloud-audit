@@ -80,12 +80,12 @@ updatebot/push-version:
 	$(eval ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION=$(shell mvn help:evaluate -Dexpression=activiti-cloud-audit-service.version -q -DforceStdout -f ../../pom.xml))
 	
 	@echo Doing updatebot push-version.....
-	cd ../../ && updatebot push-version --kind helm $(RELEASE_ARTIFACT) $(RELEASE_VERSION)
+
 	cd ../../ && updatebot push-version --kind maven org.activiti.cloud.audit:activiti-cloud-audit-dependencies $(ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION)
 	cd ../../ && updatebot push-version --kind make ACTIVITI_CLOUD_AUDIT_VERSION $(RELEASE_VERSION)
 	cd ../../ && rm -rf .updatebot-repos/
 	sleep $$[ ( $$RANDOM % 10 )  + 1 ]s
-	cd ../../ && updatebot push-version --kind helm $(RELEASE_ARTIFACT) $(RELEASE_VERSION)
+
 	cd ../../ && updatebot push-version --kind maven org.activiti.cloud.audit:activiti-cloud-audit-dependencies $(ACTIVITI_CLOUD_AUDIT_SERVICE_VERSION)
 	cd ../../ && updatebot push-version --kind make ACTIVITI_CLOUD_AUDIT_VERSION $(RELEASE_VERSION)
 
