@@ -12,7 +12,6 @@ pipeline {
     environment {
       ORG               = 'activiti'
       APP_NAME          = 'activiti-cloud-audit'
-      CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
       GITHUB_CHARTS_REPO    = "https://github.com/Activiti/activiti-cloud-helm-charts.git"
       GITHUB_HELM_REPO_URL = "https://activiti.github.io/activiti-cloud-helm-charts/"
     }
@@ -99,6 +98,13 @@ pipeline {
     }
 
     post {
+        failure {
+           slackSend(
+             channel: "#activiti-community-builds",
+             color: "danger",
+             message: "activiti-cloud-audit branch=$BRANCH_NAME is failed http://jenkins.jx.35.228.195.195.nip.io/job/Activiti/job/activiti-cloud-audit/"
+           )
+        } 
         always {
             cleanWs()
         }
