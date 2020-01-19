@@ -20,7 +20,7 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <activiti-cloud-audit-service.version>7.1.151</activiti-cloud-audit-service.version>
+    <activiti-cloud-audit-service.version>7.1.152</activiti-cloud-audit-service.version>
   </properties>
   <dependencyManagement>
     <dependencies>
