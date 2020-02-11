@@ -93,7 +93,7 @@ extraEnv: |
 
 ingress:
   ## Set to true to enable ingress record generation
-  enabled: false
+  enabled: true
 
   path: /audit
 
